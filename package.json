@@ -1,0 +1,33 @@
+{
+  "name": "dom-template-strings",
+  "version": "0.1.0",
+  "description": "Interpolate DOM Nodes into ES2015 Template Strings",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "babel src --presets es2015 -d dist",
+    "prepublish": "npm run build",
+    "mocha": "mocha -r jsdom-global/register",
+    "karma": "karma start ./karma.conf.js",
+    "prekarma": "browserify test/*.js -o dist/client-test.js -t [ babelify --presets [ es2015 ] ]",
+    "test": "npm run mocha && npm run karma"
+  },
+  "repository": "https://github.com/kapouer/dom-template-strings",
+  "authors": [
+    "Florian Reuschel <florian@loilo.de>",
+    "Jérémy Lal <kapouer@melix.org>"
+  ],
+  "license": "MIT",
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-preset-es2015": "^6.24.1",
+    "babelify": "^7.3.0",
+    "browserify": "^14.3.0",
+    "jsdom": "^10.0.0",
+    "jsdom-global": "git+https://github.com/GinjiBan/jsdom-global.git",
+    "karma": "^1.6.0",
+    "karma-mocha": "^1.3.0",
+    "karma-sauce-launcher": "^1.1.0",
+    "karma-spec-reporter": "0.0.31",
+    "mocha": "^3.3.0"
+  }
+}
