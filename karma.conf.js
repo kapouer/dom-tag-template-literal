@@ -15,7 +15,13 @@ var customLaunchers = {
 module.exports = function(config) {
   config.set({
     sauceLabs: {
-      testName: "dom-template-strings test suite"
+      testName: "dom-template-strings test suite",
+      recordScreenshots: false,
+      connectOptions: {
+        port: 5757,
+        logfile: 'sauce_connect.log'
+      },
+      public: 'public'
     },
     files: [
       "dist/template.js",
@@ -32,6 +38,7 @@ module.exports = function(config) {
     colors: true,
     logLevel: config.LOG_INFO,
     concurrency: 5,
+    captureTimeout: 120000,
     client: {
       captureConsole: true,
       timeout: 20000
