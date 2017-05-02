@@ -1,5 +1,7 @@
 # dom-template-strings
 
+[![Sauce Test Status](https://saucelabs.com/browser-matrix/kapouer+dom-template-strings.svg)](https://saucelabs.com/u/kapouer+dom-template-strings)
+
 A wild fork of domify-template-strings.
 
 > Interpolate DOM Nodes into ES2015 Template Strings
