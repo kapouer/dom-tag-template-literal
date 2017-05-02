@@ -21,6 +21,10 @@ module.exports = function(config) {
     sauceLabs: {
       testName: "dom-template-strings test suite",
       recordScreenshots: false,
+      tunnelIdentifier: process.env.TRAVIS_JOB_NUMBER,
+      username: process.env.SAUCE_USERNAME,
+      accessKey: process.env.SAUCE_ACCESS_KEY,
+      startConnect: false,
       connectOptions: {
         port: 5757,
         logfile: 'sauce_connect.log'
@@ -42,7 +46,7 @@ module.exports = function(config) {
     colors: true,
     logLevel: config.LOG_INFO,
     concurrency: 5,
-    captureTimeout: 120000,
+    captureTimeout: 0,
     client: {
       captureConsole: true,
       timeout: 20000
