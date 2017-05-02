@@ -22,15 +22,15 @@ module.exports = function(config) {
     sauceLabs: {
       testName: "dom-template-strings test suite",
       recordScreenshots: false,
-      tunnelIdentifier: process.env.TRAVIS_JOB_NUMBER,
-      username: process.env.SAUCE_USERNAME,
-      accessKey: process.env.SAUCE_ACCESS_KEY,
       startConnect: false,
-      connectOptions: {
-        port: 5757,
-        logfile: 'sauce_connect.log'
-      },
-      public: 'public'
+      //tunnelIdentifier: process.env.TRAVIS_JOB_NUMBER,
+      //username: process.env.SAUCE_USERNAME,
+      //accessKey: process.env.SAUCE_ACCESS_KEY,
+      //connectOptions: {
+       // port: 5757,
+       // logfile: 'sauce_connect.log'
+      //},
+      //public: 'public'
     },
     files: [
       "dist/template.js",
