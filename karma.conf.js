@@ -9,8 +9,10 @@ var customLaunchers = {
   iosSafari: { base: "SauceLabs", browserName: "iphone", platform: "OS X 10.10" },
   iosSafari92: { base: "SauceLabs", browserName: "iphone", platform: "OS X 10.10", version: "9.2" },
   win10ie11: { base: "SauceLabs", browserName: "internet explorer", platform: "Windows 10" },
-  win7ie9: { base: "SauceLabs", browserName: "internet explorer", platform: "Windows 7", version: "9.0" },
-  win7ie10: { base: "SauceLabs", browserName: "internet explorer", platform: "Windows 7", version: "10.0" }
+  win7ie9: { base: "SauceLabs", browserName: "internet explorer", platform: "Windows 7", version: "9" },
+  win7ie10: { base: "SauceLabs", browserName: "internet explorer", platform: "Windows 7", version: "10" },
+  win81ie11: { base: "SauceLabs", browserName: "internet explorer", platform: "Windows 8.1", version: "11" },
+  win10edge13: { base: "SauceLabs", browserName: "MicrosoftEdge", platform: "Windows 10", version: "13" }
 };
 
 module.exports = function(config) {
