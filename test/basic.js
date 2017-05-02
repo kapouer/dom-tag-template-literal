@@ -18,13 +18,12 @@ describe('dom tagged template string', function() {
 
   it('should replace attributes values', function() {
     let obj = {
-      style: 'color:red;',
+      className: 'myclass',
       text: 'awesome'
     }
-    let node = dom`<span style="${obj.style}">${obj.text}</span>`
+    let node = dom`<span class="${obj.className}">${obj.text}</span>`
     assert.equal(node.innerHTML, obj.text)
-    assert.equal(node.attributes.style.value, 'color:red;')
-    assert.equal(node.style.color, 'red')
+    assert.equal(node.className, obj.className)
   })
 
   it('should replace a Node value', function() {
