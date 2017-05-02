@@ -27,7 +27,7 @@
     "jsdom-global": "git+https://github.com/GinjiBan/jsdom-global.git",
     "karma": "^1.6.0",
     "karma-mocha": "^1.3.0",
-    "karma-sauce-launcher": "^1.1.0",
+    "karma-sauce-launcher": "coderbyheart/karma-sauce-launcher",
     "karma-spec-reporter": "0.0.31",
     "mocha": "^3.3.0"
   }

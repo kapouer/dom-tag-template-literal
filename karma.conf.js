@@ -14,15 +14,15 @@ var customLaunchers = {
 };
 
 module.exports = function(config) {
-  if (!process.env.SAUCE_USERNAME || !process.env.SAUCE_ACCESS_KEY) {
+  var env = process.env;
+  if (!env.SAUCE_USERNAME || !env.SAUCE_ACCESS_KEY) {
     console.log('Make sure the SAUCE_USERNAME and SAUCE_ACCESS_KEY environment variables are set.')
     process.exit(1)
   }
   config.set({
     sauceLabs: {
       testName: "dom-template-strings test suite",
-      tunnerIdentifier: process.env.TRAVIS_JOB_NUMBER,
-      startConnect: false
+      startConnect: true
     },
     files: [
       "dist/template.js",
