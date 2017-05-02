@@ -15,10 +15,10 @@ var customLaunchers = {
 module.exports = function(config) {
   config.set({
     sauceLabs: {
-      testName: "domify test suite"
+      testName: "dom-template-strings test suite"
     },
     files: [
-      // "https://cdn.polyfill.io/v2/polyfill.min.js",
+      "dist/template.js",
       "dist/client-test.js"
     ],
     customLaunchers: customLaunchers,

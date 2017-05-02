@@ -8,7 +8,7 @@
     "prepublish": "npm run build",
     "mocha": "mocha -r jsdom-global/register",
     "karma": "karma start ./karma.conf.js",
-    "prekarma": "browserify test/*.js -o dist/client-test.js -t [ babelify --presets [ es2015 ] ]",
+    "prekarma": "cp -f node_modules/@kapouer/template/template.js dist/ && browserify test/*.js -o dist/client-test.js -t [ babelify --presets [ es2015 ] ]",
     "test": "npm run mocha && npm run karma"
   },
   "repository": "https://github.com/kapouer/dom-template-strings",
@@ -18,6 +18,7 @@
   ],
   "license": "MIT",
   "devDependencies": {
+    "@kapouer/template": "^1.0.1",
     "babel-cli": "^6.24.1",
     "babel-preset-es2015": "^6.24.1",
     "babelify": "^7.3.0",
