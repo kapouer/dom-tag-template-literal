@@ -67,3 +67,11 @@ const dom = require('dom-template-strings')
 document.body.appendChild(dom`<p>One</p><p>Two</p><p>One</p>`)
 ```
 
+### Compatibility
+
+Everywhere a `<template>` tag is native, or polyfillable using
+https://github.com/webcomponents/template
+or
+https://github.com/kapouer/template (as a meantime replacement of the former):
+`npm install @kapouer/template`.
+
