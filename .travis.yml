@@ -8,3 +8,7 @@ addons:
 
 notifications:
   email: false
+
+env:
+  global:
+    - SAUCE_CONNECT_READY_FILE=/tmp/sauce-connect-ready

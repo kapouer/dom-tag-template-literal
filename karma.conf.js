@@ -21,7 +21,8 @@ module.exports = function(config) {
   config.set({
     sauceLabs: {
       testName: "dom-template-strings test suite",
-      recordScreenshots: false
+      tunnerIdentifier: process.env.TRAVIS_JOB_NUMBER,
+      startConnect: false
     },
     files: [
       "dist/template.js",
@@ -38,12 +39,11 @@ module.exports = function(config) {
     colors: true,
     logLevel: config.LOG_INFO,
     concurrency: 5,
-    captureTimeout: 0,
+    captureTimeout: 120000,
     client: {
       captureConsole: true,
       timeout: 20000
     },
-    startConnect: false,
     connectOptions: {
       verbose: false,
       verboseDebugging: false
