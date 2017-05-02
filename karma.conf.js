@@ -5,12 +5,12 @@ var customLaunchers = {
   // https://wiki.saucelabs.com/display/DOCS/Platform+Configurator#/
   win10chrome: { base: "SauceLabs", browserName: "chrome", platform: "Windows 10" },
   // androidChrome: { base: "SauceLabs", browserName: "android", platform: "Linux" },
-  win10firefox: { base: "SauceLabs", browserName: "firefox", platform: "Windows 10" },
-  iosSafari: { base: "SauceLabs", browserName: "iphone", platform: "OS X 10.10" },
+  // win10firefox: { base: "SauceLabs", browserName: "firefox", platform: "Windows 10" },
+  // iosSafari: { base: "SauceLabs", browserName: "iphone", platform: "OS X 10.10" },
   // iosSafari92: { base: "SauceLabs", browserName: "iphone", platform: "OS X 10.10", version: "9.2" },
-  win10ie11: { base: "SauceLabs", browserName: "internet explorer", platform: "Windows 10" },
-  win7ie9: { base: "SauceLabs", browserName: "internet explorer", platform: "Windows 7", version: "9.0" },
-  win7ie10: { base: "SauceLabs", browserName: "internet explorer", platform: "Windows 7", version: "10.0" }
+  // win10ie11: { base: "SauceLabs", browserName: "internet explorer", platform: "Windows 10" },
+  // win7ie9: { base: "SauceLabs", browserName: "internet explorer", platform: "Windows 7", version: "9.0" },
+  // win7ie10: { base: "SauceLabs", browserName: "internet explorer", platform: "Windows 7", version: "10.0" }
 };
 
 module.exports = function(config) {
@@ -21,16 +21,7 @@ module.exports = function(config) {
   config.set({
     sauceLabs: {
       testName: "dom-template-strings test suite",
-      recordScreenshots: false,
-      startConnect: false,
-      //tunnelIdentifier: process.env.TRAVIS_JOB_NUMBER,
-      //username: process.env.SAUCE_USERNAME,
-      //accessKey: process.env.SAUCE_ACCESS_KEY,
-      //connectOptions: {
-       // port: 5757,
-       // logfile: 'sauce_connect.log'
-      //},
-      //public: 'public'
+      recordScreenshots: false
     },
     files: [
       "dist/template.js",
@@ -52,7 +43,7 @@ module.exports = function(config) {
       captureConsole: true,
       timeout: 20000
     },
-    startConnect: true,
+    startConnect: false,
     connectOptions: {
       verbose: false,
       verboseDebugging: false
