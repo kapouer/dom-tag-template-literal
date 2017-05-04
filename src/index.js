@@ -40,7 +40,7 @@ function generateNodes (doc, ...partials) {
     const placeholder = container.querySelector(`generator-placeholder#${id}`)
     placeholder.parentNode.replaceChild(node, placeholder)
   })
-  template.innerHTML = ""
+
   // Get array of Nodes
   return container
 }
