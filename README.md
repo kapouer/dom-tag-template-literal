@@ -1,12 +1,11 @@
 # dom-template-strings
 
+Create DOM Nodes or Fragments using ES2015 Template Strings.
+
+A fork of [domify-template-strings](https://github.com/Loilo/domify-template-strings).
+
 [![Sauce Test Status](https://saucelabs.com/browser-matrix/kapouer+dom-template-strings.svg)](https://saucelabs.com/u/kapouer+dom-template-strings)
 
-A wild fork of domify-template-strings.
-
-> Interpolate DOM Nodes into ES2015 Template Strings
-
-This package contains a tiny tag function for ES2015 template strings. It takes an HTML string and returns a `Node` object.
 
 ## Installation
 ```bash
@@ -14,9 +13,6 @@ npm install --save dom-template-strings
 ```
 
 ## Usage
-The real fun part of creating pieces of DOM in JavaScript comes when you want to use things like event listeners on single elements. They can be a real pain if you want to set up your DOM tree in a declarative way if you don't want to use a full blown templating language or framework.
-
-But with the right tag function, ES2015 template strings allow you to go for it just like that:
 
 ```javascript
 const dom = require('dom-template-strings')
@@ -35,8 +31,10 @@ The interpolated values the `dom` function handles are
 
 1. DOM `Node` objects, which will be inserted at the corresponding slot in the DOM tree.
 2. Arrays, which will be handled recursively.
+3. null or undefined values are converted to empty string (as of version 1.1.0)
 
 All other values will be passed like in usual template strings.
+
 
 ### Example with arrays
 
@@ -57,7 +55,6 @@ const list = dom `<ul>${items.map(label => {
 document.body.appendChild(list)
 ```
 
-Just as an example. I'm not suggesting managing your application state through the DOM. :)
 
 ### Multiple root nodes
 
@@ -80,11 +77,23 @@ let frag = dom.bind(mydoc)`<p>One</p><p>Two</p><p>One</p>`;
 document.body.appendChild(document.adoptNode(frag));
 ```
 
-### Compatibility
+## Compatibility
+
+### template tag support
 
 Everywhere a `<template>` tag is native, or polyfillable using
 https://github.com/webcomponents/template
 or
 https://github.com/kapouer/template (as a meantime replacement of the former):
 `npm install @kapouer/template`.
+
+### es2015
+
+Software written with dom-template-strings can be babelified to es5, see for
+example the one-liners in package.json.
+
+
+## License
+
+MIT, see LICENSE file.
 
