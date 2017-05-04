@@ -54,7 +54,14 @@ function generateNodes (doc, ...partials) {
 function taggedTemplateHandler (doc, strings, ...values) {
   // Create an array that puts the values back in their place
   const arr = strings.reduce((carry, current, index) => {
-    return carry.concat(current, (index + 1 === strings.length) ? [] : values[index])
+    let val;
+    if (index + 1 === strings.length) {
+      val = []
+    } else {
+      val = values[index]
+      if (val == null) val = ""
+    }
+    return carry.concat(current, val)
   }, [])
 
   // Generate the Node array
