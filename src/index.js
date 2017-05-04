@@ -9,17 +9,11 @@ function generateId () {
 }
 
 /**
-.* our template placeholder
-.*/
-
-let template = document.createElement('template')
-
-/**
  * Generates an array of DOM Nodes
  * @param  {...any} partials   Might be anything. DOM Nodes are handled, arrays are iterated over and then handled, everything else just gets passed through
  * @return {Node[]}            An array of DOM Nodes
  */
-function generateNodes (...partials) {
+function generateNodes (doc, ...partials) {
   // Array of placeholder IDs
   const placeholders = []
 
@@ -37,6 +31,7 @@ function generateNodes (...partials) {
   }, []).join('')
 
   // Wrap in temporary container node
+  let template = doc.createElement('template')
   template.innerHTML = html
   let container = template.content
 
@@ -45,7 +40,7 @@ function generateNodes (...partials) {
     const placeholder = container.querySelector(`generator-placeholder#${id}`)
     placeholder.parentNode.replaceChild(node, placeholder)
   })
-
+  template.innerHTML = ""
   // Get array of Nodes
   return container
 }
@@ -56,19 +51,20 @@ function generateNodes (...partials) {
  * @param  {...values}   values   The interpolated parts of the template string
  * @return {Node[]}               An array of DOM Nodes
  */
-function taggedTemplateHandler (strings, ...values) {
+function taggedTemplateHandler (doc, strings, ...values) {
   // Create an array that puts the values back in their place
   const arr = strings.reduce((carry, current, index) => {
     return carry.concat(current, (index + 1 === strings.length) ? [] : values[index])
   }, [])
 
   // Generate the Node array
-  return generateNodes(...arr)
+  return generateNodes(doc, ...arr)
 }
 
 
 function domify (strings, ...values) {
-  let result = taggedTemplateHandler(strings, ...values)
+  var doc = this && this.nodeType == Node.DOCUMENT_NODE || document;
+  let result = taggedTemplateHandler(doc, strings, ...values)
   if (result.childNodes.length == 1) return result.firstChild
   else return result
 }
