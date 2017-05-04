@@ -69,6 +69,17 @@ const dom = require('dom-template-strings')
 document.body.appendChild(dom`<p>One</p><p>Two</p><p>One</p>`)
 ```
 
+### Another document
+
+Another document can be used to own the nodes:
+
+```javascript
+const dom = require('dom-template-strings')
+let mydoc = document.cloneNode();
+let frag = dom.bind(mydoc)`<p>One</p><p>Two</p><p>One</p>`;
+document.body.appendChild(document.adoptNode(frag));
+```
+
 ### Compatibility
 
 Everywhere a `<template>` tag is native, or polyfillable using
