@@ -24,7 +24,7 @@ function generateNodes (doc, ...partials) {
     } else if (typeof partial === 'object' && partial instanceof Node) {
       const id = generateId()
       placeholders.push({ id, node: partial })
-      return carry.concat(`<generator-placeholder id="${id}"></generator-placeholder>`)
+      return carry.concat(`<${partial.nodeName} id="${id}"></${partial.nodeName}>`)
     } else {
       return carry.concat(partial)
     }
@@ -37,7 +37,7 @@ function generateNodes (doc, ...partials) {
 
   // Replace placeholders with real Nodes
   placeholders.forEach(({ id, node }) => {
-    const placeholder = container.querySelector(`generator-placeholder#${id}`)
+    const placeholder = container.querySelector(`${node.nodeName}#${id}`)
     placeholder.parentNode.replaceChild(node, placeholder)
   })
 
