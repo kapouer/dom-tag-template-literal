@@ -26,6 +26,17 @@ describe('dom tagged template string', function() {
     assert.equal(node.className, obj.className)
   })
 
+  it('should not display null or undefined value', function() {
+    let obj = {
+      className: null,
+      text: 'awesome'
+    }
+    let node = dom`<span class="${obj.className}" title="${obj.ratat}">${obj.text}</span>`
+    assert.equal(node.innerHTML, obj.text)
+    assert.equal(node.getAttribute('class'), "")
+    assert.equal(node.getAttribute('title'), "")
+  })
+
   it('should replace a Node value', function() {
     const items = [ 'One', 'Two', 'Three' ]
     const list = dom`<ul>${items.map(label => {
