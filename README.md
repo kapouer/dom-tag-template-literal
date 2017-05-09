@@ -72,10 +72,20 @@ Another document can be used to own the nodes:
 
 ```javascript
 const dom = require('dom-template-strings')
-let mydoc = document.cloneNode();
-let frag = dom.bind(mydoc)`<p>One</p><p>Two</p><p>One</p>`;
-document.body.appendChild(document.adoptNode(frag));
+let mydoc = document.cloneNode()
+let frag = dom.bind(mydoc)`<p>One</p><p>Two</p><p>One</p>`
+document.body.appendChild(document.adoptNode(frag))
 ```
+
+It can also be added to all documents:
+
+```javascript
+Document.prototype.dom = require('dom-template-strings')
+let doc = document.cloneNode()
+let frag = doc.dom`<p>test</p>`
+// frag.ownerDocument == doc
+```
+
 
 ## Compatibility
 
