@@ -8,6 +8,13 @@ describe('dom tagged template string', function() {
     assert.equal(node.tagName, "SPAN")
   })
 
+  it('should return a DOM node that has no parentNode', function() {
+    let node = dom`<span></span>`
+    assert.ok(node instanceof Node)
+    assert.ok(node.parentNode == null)
+    assert.equal(node.tagName, "SPAN")
+  })
+
   it('should return a DOM fragment', function() {
     let node = dom`<tr><td>a</td></tr><tr><td>b</td></tr>`
     assert.ok(node instanceof Node)

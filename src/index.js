@@ -72,8 +72,13 @@ function taggedTemplateHandler (doc, strings, ...values) {
 function domify (strings, ...values) {
   var doc = (this && this.nodeType == Node.DOCUMENT_NODE) ? this : document
   let result = taggedTemplateHandler(doc, strings, ...values)
-  if (result.childNodes.length == 1) return result.firstChild
-  else return result
+  if (result.childNodes.length == 1) {
+    let child = result.firstChild
+    result.removeChild(child)
+    return child
+  } else {
+    return result
+  }
 }
 
 })()
