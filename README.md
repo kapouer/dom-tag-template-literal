@@ -14,6 +14,20 @@ npm install --save dom-template-strings
 
 ## Usage
 
+### New in version 2
+The standalone version exports itself as `Document.prototype.dom`, so one can do:
+```html
+<script src="dist/dom-template-strings.js"></script>
+<script>
+  document.body.appendChild(document.dom`<div>${document.location.toString()}</div>`)
+</script>
+```
+It is a breaking change from version 1 which used to export a global `dom` function.
+
+
+### using require
+
+The exported module function is bound to the current document:
 ```javascript
 const dom = require('dom-template-strings')
 
@@ -77,7 +91,7 @@ let frag = dom.bind(mydoc)`<p>One</p><p>Two</p><p>One</p>`
 document.body.appendChild(document.adoptNode(frag))
 ```
 
-It can also be added to all documents:
+It can also be added to all documents, exactly like the standalone version:
 
 ```javascript
 Document.prototype.dom = require('dom-template-strings')

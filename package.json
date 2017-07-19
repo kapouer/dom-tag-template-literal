@@ -1,10 +1,10 @@
 {
   "name": "dom-template-strings",
-  "version": "1.1.1",
+  "version": "2.0.0",
   "description": "Interpolate DOM Nodes into ES2015 Template Strings",
-  "main": "dist/index.js",
+  "main": "dist/dom-template-strings.js",
   "scripts": {
-    "build": "babel src --presets es2015 -d dist && browserify dist/index.js -o dist/dom-template-strings.js --standalone dom",
+    "build": "babel src/index.js --presets es2015 -o dist/dom-template-strings.js",
     "prepublish": "npm run build",
     "mocha": "mocha -r jsdom-global/register",
     "karma": "karma start ./karma.conf.js",

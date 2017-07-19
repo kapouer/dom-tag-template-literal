@@ -1,3 +1,10 @@
+(function() {
+if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
+  module.exports = domify
+} else {
+  Document.prototype.dom = domify
+}
+
 /**
  * Just generates some kind-of-random ID. It just needs to be distinguishable from regular IDs
  * @return {string}  The generated ID
@@ -69,4 +76,4 @@ function domify (strings, ...values) {
   else return result
 }
 
-module.exports = domify
+})()
