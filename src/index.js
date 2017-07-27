@@ -2,6 +2,7 @@
 if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
   module.exports = domify
 } else {
+  Node.prototype.dom = domify
   Document.prototype.dom = domify
 }
 
@@ -70,7 +71,11 @@ function taggedTemplateHandler (doc, strings, ...values) {
 
 
 function domify (strings, ...values) {
-  var doc = (this && this.nodeType == Node.DOCUMENT_NODE) ? this : document
+  var doc = document
+  if (this) {
+    if (this.nodeType == Node.DOCUMENT_NODE) doc = this
+    else if (this.ownerDocument) doc = this.ownerDocument
+  }
   let result = taggedTemplateHandler(doc, strings, ...values)
   if (result.childNodes.length == 1) {
     let child = result.firstChild
