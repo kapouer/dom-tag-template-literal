@@ -69,6 +69,10 @@ const list = dom `<ul>${items.map(label => {
 document.body.appendChild(list)
 ```
 
+Since version 2.2.0 it is also possible to pass instances of
+- DocumentFragment
+- NodeList
+
 
 ### Multiple root nodes
 

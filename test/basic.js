@@ -65,5 +65,12 @@ describe('dom tagged template string', function() {
     assert.equal(list.querySelectorAll('li').length, 3)
     assert.equal(list.textContent, 'OneTwoThree')
   })
+
+  it('should replace a DocumentFragment', function() {
+    const items = dom`<li>One</li><li>Two</li><li>Three</li>`
+    const list = dom`<ul>${items}</ul>`
+    assert.equal(list.querySelectorAll('li').length, 3)
+    assert.equal(list.textContent, 'OneTwoThree')
+  })
 })
 
