@@ -58,5 +58,12 @@ describe('dom tagged template string', function() {
     assert.equal(list.querySelectorAll('li > button').length, 3)
     assert.equal(list.textContent, 'One XTwo XThree X')
   })
+
+  it('should replace a NodeList', function() {
+    const items = dom`<div><li>One</li><li>Two</li><li>Three</li></div>`
+    const list = dom`<ul>${items.childNodes}</ul>`
+    assert.equal(list.querySelectorAll('li').length, 3)
+    assert.equal(list.textContent, 'OneTwoThree')
+  })
 })
 
