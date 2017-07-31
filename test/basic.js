@@ -46,11 +46,14 @@ describe('dom tagged template string', function() {
 
   it('should replace a Node value', function() {
     const items = [ 'One', 'Two', 'Three' ]
-    const list = dom`<ul>${items.map(label => {
-      const removeBtn = dom`<button>X</button>`
-      const node = dom`<li>${label} ${removeBtn}</li>`
-    return node
-    })}</ul>`
+    const list = dom`<ul>${getItems(items)}</ul>`
+    function getItems(items) {
+      return items.map(label => {
+        const removeBtn = dom`<button>X</button>`
+        const node = dom`<li>${label} ${removeBtn}</li>`
+        return node
+      })
+    }
     assert.equal(list.querySelectorAll('li').length, 3)
     assert.equal(list.querySelectorAll('li > button').length, 3)
     assert.equal(list.textContent, 'One XTwo XThree X')
