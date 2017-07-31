@@ -49,14 +49,13 @@ describe('dom tagged template string', function() {
     const list = dom`<ul>${getItems(items)}</ul>`
     function getItems(items) {
       return items.map(label => {
-        const removeBtn = dom`<button>X</button>`
-        const node = dom`<li>${label} ${removeBtn}</li>`
+        const node = document.createElement('li')
+        node.innerHTML = label
         return node
       })
     }
     assert.equal(list.querySelectorAll('li').length, 3)
-    assert.equal(list.querySelectorAll('li > button').length, 3)
-    assert.equal(list.textContent, 'One XTwo XThree X')
+    assert.equal(list.textContent, 'OneTwoThree')
   })
 
   it('should replace a NodeList', function() {
