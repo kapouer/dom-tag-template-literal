@@ -118,9 +118,9 @@ describe('dom tagged template string', function() {
 
     `
 
-    const firstTextNodeContent = String.raw`${node.childNodes[0].textContent}`
-    const lastTextNodeContent = String.raw`${node.childNodes[2].textContent}`
-    
+    const firstTextNodeContent = `${node.childNodes[0].textContent}`
+    const lastTextNodeContent = `${node.childNodes[2].textContent}`
+
     assert.ok(node instanceof Node)
     assert.equal(node.nodeType, Node.DOCUMENT_FRAGMENT_NODE)
     assert.equal(node.childNodes.length, 3)
