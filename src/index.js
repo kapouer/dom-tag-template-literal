@@ -17,6 +17,57 @@ function generateId () {
 }
 
 /**
+ * Receives a DOM Fragment and trim out whitespace-only children TextNodes
+ * @param  {DocumentFragment} fragment   A DOM Fragment whose children will be trimmed
+ * @return {Node}                        A DOM Node 
+ */
+function trim(fragment){
+  const outerWhitespaceNodeReducer = ({isLastOuterTextNodeFound, whitespaceNodes}, currentNode) => {
+    if(isLastOuterTextNodeFound){
+      return {isLastOuterTextNodeFound: true, whitespaceNodes}
+    } else {
+      if(currentNode.nodeType === Node.TEXT_NODE){
+        if(currentNode.textContent.replace(/^\s+/, "")){
+          return {isLastOuterTextNodeFound: true, whitespaceNodes}
+        } else {
+          whitespaceNodes.push(currentNode)
+          return {isLastOuterTextNodeFound: false, whitespaceNodes}
+        }
+      } else {
+        return {isLastOuterTextNodeFound: true, whitespaceNodes}
+      }
+    }
+  }
+
+  const {whitespaceNodes: leftWhiteSpaceNodes} = [...fragment.childNodes].reduce(
+    outerWhitespaceNodeReducer
+    ,{
+      isLastOuterTextNodeFound: false
+      ,whitespaceNodes: []
+    }
+  )
+
+  const {whitespaceNodes: rightWhiteSpaceNodes} = [...fragment.childNodes].reduceRight(
+    outerWhitespaceNodeReducer
+    ,{
+      isLastOuterTextNodeFound: false
+      ,whitespaceNodes: []
+    }
+  )
+
+  if(leftWhiteSpaceNodes.length) leftWhiteSpaceNodes.forEach(node => node.remove())
+  if(rightWhiteSpaceNodes.length) rightWhiteSpaceNodes.forEach(node => node.remove())
+  
+  if (fragment.childNodes.length == 1) {
+    let child = fragment.firstChild
+    fragment.removeChild(child)
+    return child
+  } else {
+    return fragment
+  }
+}
+
+/**
  * Generates an array of DOM Nodes
  * @param  {...any} partials   Might be anything. DOM Nodes are handled, arrays are iterated over and then handled, everything else just gets passed through
  * @return {Node[]}            An array of DOM Nodes
@@ -53,9 +104,7 @@ function generateNodes (doc, ...partials) {
     const placeholder = container.querySelector(`${node.nodeName}#${id}`)
     placeholder.parentNode.replaceChild(node, placeholder)
   })
-
-  // Get array of Nodes
-  return container
+  return trim(container)
 }
 
 /**
@@ -81,14 +130,7 @@ function domify (strings, ...values) {
     if (this.nodeType == Node.DOCUMENT_NODE) doc = this
     else if (this.ownerDocument) doc = this.ownerDocument
   }
-  let result = taggedTemplateHandler(doc, strings, ...values)
-  if (result.childNodes.length == 1) {
-    let child = result.firstChild
-    result.removeChild(child)
-    return child
-  } else {
-    return result
-  }
+  return taggedTemplateHandler(doc, strings, ...values)
 }
 
 })()
