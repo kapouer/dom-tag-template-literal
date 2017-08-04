@@ -75,6 +75,7 @@ describe('dom tagged template string', function() {
   it('should return a DOM Element when ther is only whitespace chars around template', function() {
     let node = dom`
   
+    
       <div>
         content
       </div>
