@@ -101,9 +101,10 @@ describe('dom tagged template string', function() {
     
     assert.ok(node instanceof Node)
     assert.equal(node.nodeType, Node.DOCUMENT_FRAGMENT_NODE)
+    assert.equal(node.childNodes.length, 2)
   })
 
-  it('should remove whitespace chars around template', function() {
+  it('should not remove whitespace chars mixed with non-whitespace chars around template', function() {
     let node = dom`
       
       Hello
@@ -112,12 +113,19 @@ describe('dom tagged template string', function() {
         content
       </div>
 
+      Bye
+
 
     `
+
+    const firstTextNodeContent = String.raw`${node.childNodes[0].textContent}`
+    const lastTextNodeContent = String.raw`${node.childNodes[2].textContent}`
     
     assert.ok(node instanceof Node)
     assert.equal(node.nodeType, Node.DOCUMENT_FRAGMENT_NODE)
-    assert.equal(node.childNodes.length, 2)
+    assert.equal(node.childNodes.length, 3)
+    assert.equal(firstTextNodeContent, `\n      \n      Hello\n      \n      `)
+    assert.equal(lastTextNodeContent, `\n\n      Bye\n\n\n    `)
   })
 })
 
