@@ -29,4 +29,9 @@ node_modules
 # Users Environment Variables
 .lock-wscript
 
+
+###MacOS###
+
+.DS_Store
+
 /dist
