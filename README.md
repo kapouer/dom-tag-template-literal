@@ -74,6 +74,19 @@ Since version 2.2.0 it is also possible to pass instances of
 - NodeList
 
 
+### trim whitespace
+
+Since version 2.3.0, if the string literal has whitespace before or after a single node,
+it is removed. This doesn't happen when there are other characters.
+
+```javascript
+var node = dom`
+  <div>hello</div>
+`
+assert.equal(node.nodeType, 1)
+```
+
+
 ### Multiple root nodes
 
 Multiple nodes are returned as a document fragment:
