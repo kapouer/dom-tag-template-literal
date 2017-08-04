@@ -17,36 +17,36 @@ function generateId () {
 }
 
 function trim(node){
-  const outterWhitespaceNodeReducer = ({isLastOutterTextNodeFound, whitespaceNodes}, currentNode) => {
-    if(isLastOutterTextNodeFound){
-      return {isLastOutterTextNodeFound: true, whitespaceNodes}
+  const outerWhitespaceNodeReducer = ({isLastOuterTextNodeFound, whitespaceNodes}, currentNode) => {
+    if(isLastOuterTextNodeFound){
+      return {isLastOuterTextNodeFound: true, whitespaceNodes}
     } else {
       if(currentNode.nodeType === Node.TEXT_NODE){
         if(currentNode.textContent.replace(/^\s+/, "")){
           currentNode.textContent = currentNode.textContent.replace(/^\s+/, "")
-          return {isLastOutterTextNodeFound: true, whitespaceNodes}
+          return {isLastOuterTextNodeFound: true, whitespaceNodes}
         } else {
           whitespaceNodes.push(currentNode)
-          return {isLastOutterTextNodeFound: false, whitespaceNodes}
+          return {isLastOuterTextNodeFound: false, whitespaceNodes}
         }
       } else {
-        return {isLastOutterTextNodeFound: true, whitespaceNodes}
+        return {isLastOuterTextNodeFound: true, whitespaceNodes}
       }
     }
   }
 
   const {whitespaceNodes: leftWhiteSpaceNodes} = [...node.childNodes].reduce(
-    outterWhitespaceNodeReducer
+    outerWhitespaceNodeReducer
     ,{
-      isLastOutterTextNodeFound: false
+      isLastOuterTextNodeFound: false
       ,whitespaceNodes: []
     }
   )
 
   const {whitespaceNodes: rightWhiteSpaceNodes} = [...node.childNodes].reduceRight(
-    outterWhitespaceNodeReducer
+    outerWhitespaceNodeReducer
     ,{
-      isLastOutterTextNodeFound: false
+      isLastOuterTextNodeFound: false
       ,whitespaceNodes: []
     }
   )
