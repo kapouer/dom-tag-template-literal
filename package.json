@@ -4,7 +4,7 @@
   "description": "Interpolate DOM Nodes into ES2015 Template Strings",
   "main": "dist/dom-template-strings.js",
   "scripts": {
-    "build": "babel src/index.js --presets es2015 -o dist/dom-template-strings.js",
+    "build": "mkdir -p ./dist && babel src/index.js --presets es2015 -o dist/dom-template-strings.js",
     "prepublish": "npm run build",
     "mocha": "mocha -r jsdom-global/register",
     "karma": "karma start ./karma.conf.js",
