@@ -16,14 +16,18 @@ function generateId () {
   return `p-${counter}-${Date.now()}`
 }
 
-function trim(node){
+/**
+ * Receives a DOM Fragment and trim out whitespace-only children TextNodes
+ * @param  {DocumentFragment} fragment   A DOM Fragment whose children will be trimmed
+ * @return {Node}                        A DOM Node 
+ */
+function trim(fragment){
   const outerWhitespaceNodeReducer = ({isLastOuterTextNodeFound, whitespaceNodes}, currentNode) => {
     if(isLastOuterTextNodeFound){
       return {isLastOuterTextNodeFound: true, whitespaceNodes}
     } else {
       if(currentNode.nodeType === Node.TEXT_NODE){
         if(currentNode.textContent.replace(/^\s+/, "")){
-          currentNode.textContent = currentNode.textContent.replace(/^\s+/, "")
           return {isLastOuterTextNodeFound: true, whitespaceNodes}
         } else {
           whitespaceNodes.push(currentNode)
@@ -35,7 +39,7 @@ function trim(node){
     }
   }
 
-  const {whitespaceNodes: leftWhiteSpaceNodes} = [...node.childNodes].reduce(
+  const {whitespaceNodes: leftWhiteSpaceNodes} = [...fragment.childNodes].reduce(
     outerWhitespaceNodeReducer
     ,{
       isLastOuterTextNodeFound: false
@@ -43,7 +47,7 @@ function trim(node){
     }
   )
 
-  const {whitespaceNodes: rightWhiteSpaceNodes} = [...node.childNodes].reduceRight(
+  const {whitespaceNodes: rightWhiteSpaceNodes} = [...fragment.childNodes].reduceRight(
     outerWhitespaceNodeReducer
     ,{
       isLastOuterTextNodeFound: false
@@ -54,12 +58,12 @@ function trim(node){
   if(leftWhiteSpaceNodes.length) leftWhiteSpaceNodes.forEach(node => node.remove())
   if(rightWhiteSpaceNodes.length) rightWhiteSpaceNodes.forEach(node => node.remove())
   
-  if (node.childNodes.length == 1) {
-    let child = node.firstChild
-    node.removeChild(child)
+  if (fragment.childNodes.length == 1) {
+    let child = fragment.firstChild
+    fragment.removeChild(child)
     return child
   } else {
-    return node
+    return fragment
   }
 }
 
