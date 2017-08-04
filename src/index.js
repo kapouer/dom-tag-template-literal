@@ -16,29 +16,43 @@ function generateId () {
   return `p-${counter}-${Date.now()}`
 }
 
-function trim(doc, node){
-
-  const intialWhitespaceNodeReducer = (isLastOutterTextNodeFound, currentNode) => {
+function trim(node){
+  const outterWhitespaceNodeReducer = ({isLastOutterTextNodeFound, whitespaceNodes}, currentNode) => {
     if(isLastOutterTextNodeFound){
-      return true
+      return {isLastOutterTextNodeFound: true, whitespaceNodes}
     } else {
       if(currentNode.nodeType === Node.TEXT_NODE){
         if(currentNode.textContent.replace(/^\s+/, "")){
           currentNode.textContent = currentNode.textContent.replace(/^\s+/, "")
-          return true
+          return {isLastOutterTextNodeFound: true, whitespaceNodes}
         } else {
-          currentNode.remove()
-          return false
+          whitespaceNodes.push(currentNode)
+          return {isLastOutterTextNodeFound: false, whitespaceNodes}
         }
       } else {
-        isLastOutterTextNodeFound = true
-        return true
+        return {isLastOutterTextNodeFound: true, whitespaceNodes}
       }
     }
   }
 
-  const trimmedLeft = [...node.childNodes].reduce(intialWhitespaceNodeReducer, false)
-  const trimmedRight = [...node.childNodes].reduceRight(intialWhitespaceNodeReducer, false)
+  const {whitespaceNodes: leftWhiteSpaceNodes} = [...node.childNodes].reduce(
+    outterWhitespaceNodeReducer
+    ,{
+      isLastOutterTextNodeFound: false
+      ,whitespaceNodes: []
+    }
+  )
+
+  const {whitespaceNodes: rightWhiteSpaceNodes} = [...node.childNodes].reduceRight(
+    outterWhitespaceNodeReducer
+    ,{
+      isLastOutterTextNodeFound: false
+      ,whitespaceNodes: []
+    }
+  )
+
+  if(leftWhiteSpaceNodes.length) leftWhiteSpaceNodes.forEach(node => node.remove())
+  if(rightWhiteSpaceNodes.length) rightWhiteSpaceNodes.forEach(node => node.remove())
   
   if (node.childNodes.length == 1) {
     let child = node.firstChild
@@ -86,7 +100,7 @@ function generateNodes (doc, ...partials) {
     const placeholder = container.querySelector(`${node.nodeName}#${id}`)
     placeholder.parentNode.replaceChild(node, placeholder)
   })
-  return trim(doc, container)
+  return trim(container)
 }
 
 /**
