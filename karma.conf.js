@@ -40,7 +40,7 @@ module.exports = function(config) {
     port: 9876,
     colors: true,
     logLevel: config.LOG_INFO,
-    concurrency: 5,
+    concurrency: 1,
     captureTimeout: 120000,
     client: {
       captureConsole: true,
