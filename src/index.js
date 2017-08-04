@@ -41,7 +41,7 @@ function generateNodes (doc, ...partials) {
       return carry.concat(partial)
     }
   }
-  const html = partials.reduce(reducer, []).join('')
+  const html = partials.reduce(reducer, []).join('').replace(/^\s*</, "<").replace(/>\s*$/, ">")
 
   // Wrap in temporary container node
   let template = doc.createElement('template')
