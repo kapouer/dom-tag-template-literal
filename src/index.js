@@ -16,6 +16,39 @@ function generateId () {
   return `p-${counter}-${Date.now()}`
 }
 
+function trim(doc, node){
+
+  const intialWhitespaceNodeReducer = (isLastOutterTextNodeFound, currentNode) => {
+    if(isLastOutterTextNodeFound){
+      return true
+    } else {
+      if(currentNode.nodeType === Node.TEXT_NODE){
+        if(currentNode.textContent.replace(/^\s+/, "")){
+          currentNode.textContent = currentNode.textContent.replace(/^\s+/, "")
+          return true
+        } else {
+          currentNode.remove()
+          return false
+        }
+      } else {
+        isLastOutterTextNodeFound = true
+        return true
+      }
+    }
+  }
+
+  const trimmedLeft = [...node.childNodes].reduce(intialWhitespaceNodeReducer, false)
+  const trimmedRight = [...node.childNodes].reduceRight(intialWhitespaceNodeReducer, false)
+  
+  if (node.childNodes.length == 1) {
+    let child = node.firstChild
+    node.removeChild(child)
+    return child
+  } else {
+    return node
+  }
+}
+
 /**
  * Generates an array of DOM Nodes
  * @param  {...any} partials   Might be anything. DOM Nodes are handled, arrays are iterated over and then handled, everything else just gets passed through
@@ -53,9 +86,7 @@ function generateNodes (doc, ...partials) {
     const placeholder = container.querySelector(`${node.nodeName}#${id}`)
     placeholder.parentNode.replaceChild(node, placeholder)
   })
-
-  // Get array of Nodes
-  return container
+  return trim(doc, container)
 }
 
 /**
@@ -81,14 +112,7 @@ function domify (strings, ...values) {
     if (this.nodeType == Node.DOCUMENT_NODE) doc = this
     else if (this.ownerDocument) doc = this.ownerDocument
   }
-  let result = taggedTemplateHandler(doc, strings, ...values)
-  if (result.childNodes.length == 1) {
-    let child = result.firstChild
-    result.removeChild(child)
-    return child
-  } else {
-    return result
-  }
+  return taggedTemplateHandler(doc, strings, ...values)
 }
 
 })()
