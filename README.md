@@ -97,6 +97,14 @@ const dom = require('dom-template-strings')
 document.body.appendChild(dom`<p>One</p><p>Two</p><p>One</p>`)
 ```
 
+Since version 2.4.0 mapping mapping an array of dom nodes, even of length one,
+returns a document fragment:
+
+```javascript
+const dom = require('dom-template-strings')
+dom`${[document.createElement('div')]}`.nodeType == Document.DOCUMENT_FRAGMENT_NODE
+```
+
 ### Another document
 
 Another document can be used to own the nodes:
