@@ -72,7 +72,7 @@ describe('dom tagged template string', function() {
     assert.equal(list.textContent, 'OneTwoThree')
   })
 
-  it('should return a DOM Element when ther is only whitespace chars around template', function() {
+  it('should return a DOM Element when there is only whitespace chars around template', function() {
     let node = dom`
 
 
