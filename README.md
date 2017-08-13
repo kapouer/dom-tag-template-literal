@@ -102,7 +102,7 @@ returns a document fragment:
 
 ```javascript
 const dom = require('dom-template-strings')
-dom`${[document.createElement('div')]}`.nodeType == Document.DOCUMENT_FRAGMENT_NODE
+dom`${[document.createElement('div')]}`.nodeType == Node.DOCUMENT_FRAGMENT_NODE
 ```
 
 ### Another document

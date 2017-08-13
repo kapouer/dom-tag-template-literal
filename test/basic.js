@@ -83,7 +83,7 @@ describe('dom tagged template string', function() {
     assert.equal(gen(['test1', 'test2']).nodeType, Node.DOCUMENT_FRAGMENT_NODE)
     // test the feature
     assert.equal(gen(['test']).nodeType, Node.DOCUMENT_FRAGMENT_NODE)
-    assert.equal(dom`${[document.createElement('div')]}`.nodeType, Document.DOCUMENT_FRAGMENT_NODE)
+    assert.equal(dom`${[document.createElement('div')]}`.nodeType, Node.DOCUMENT_FRAGMENT_NODE)
   })
 
   it('should return a DOM Element when there is only whitespace chars around template', function() {
