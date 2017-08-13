@@ -74,31 +74,31 @@ describe('dom tagged template string', function() {
 
   it('should return a DOM Element when ther is only whitespace chars around template', function() {
     let node = dom`
-  
-    
+
+
       <div>
         content
       </div>
 
 
     `
-    
+
     assert.ok(node instanceof Node)
     assert.equal(node.nodeType, Node.ELEMENT_NODE)
   })
 
   it('should return a DOM Fragment when there is non-whitespace chars around template', function() {
     let node = dom`
-      
+
       Hello
-      
+
       <div>
         content
       </div>
 
 
     `
-    
+
     assert.ok(node instanceof Node)
     assert.equal(node.nodeType, Node.DOCUMENT_FRAGMENT_NODE)
     assert.equal(node.childNodes.length, 2)
@@ -106,9 +106,9 @@ describe('dom tagged template string', function() {
 
   it('should not remove whitespace chars mixed with non-whitespace chars around template', function() {
     let node = dom`
-      
+
       Hello
-      
+
       <div>
         content
       </div>
@@ -124,7 +124,7 @@ describe('dom tagged template string', function() {
     assert.ok(node instanceof Node)
     assert.equal(node.nodeType, Node.DOCUMENT_FRAGMENT_NODE)
     assert.equal(node.childNodes.length, 3)
-    assert.equal(firstTextNodeContent, `\n      \n      Hello\n      \n      `)
+    assert.equal(firstTextNodeContent, `\n\n      Hello\n\n      `)
     assert.equal(lastTextNodeContent, `\n\n      Bye\n\n\n    `)
   })
 })
