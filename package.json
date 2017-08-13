@@ -1,6 +1,6 @@
 {
   "name": "dom-template-strings",
-  "version": "2.3.0",
+  "version": "2.4.0",
   "description": "Interpolate DOM Nodes into ES2015 Template Strings",
   "main": "dist/dom-template-strings.js",
   "scripts": {
