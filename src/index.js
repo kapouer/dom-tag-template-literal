@@ -54,7 +54,17 @@ function generateNodes (doc, ...partials) {
     placeholder.parentNode.replaceChild(node, placeholder)
   })
 
-  const shouldBeFragment = partials.some(item => typeof item === 'object' && item instanceof Node)
+  let shouldBeFragment = false
+  for (var i = 0; i < partials.length; i++) {
+    if (partials[i] == "") {
+      continue
+    } else if (partials[i] instanceof Node) {
+      shouldBeFragment = true
+      break
+    } else {
+      break
+    }
+  }
 
   if (container.childNodes.length == 1 && !shouldBeFragment) {
     let child = container.firstChild

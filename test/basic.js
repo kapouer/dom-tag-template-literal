@@ -86,6 +86,17 @@ describe('dom tagged template string', function() {
     assert.equal(dom`${[document.createElement('div')]}`.nodeType, Node.DOCUMENT_FRAGMENT_NODE)
   })
 
+  it('should not return a fragment if there is a replacement with an array inside', function() {
+    function item(x) {
+      return dom`<span>${x}</span>`
+    }
+    function gen(list) {
+      return dom`<div>${list.map(item)}</div>`
+    }
+    assert.equal(gen(['test1', 'test2']).nodeType, Node.ELEMENT_NODE)
+    assert.equal(gen(['test']).nodeType, Node.ELEMENT_NODE)
+  })
+
   it('should return a DOM Element when there is only whitespace chars around template', function() {
     let node = dom`
 
