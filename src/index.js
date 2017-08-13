@@ -54,7 +54,15 @@ function generateNodes (doc, ...partials) {
     placeholder.parentNode.replaceChild(node, placeholder)
   })
 
-  // Get array of Nodes
+  const shouldBeFragment = partials.some(item => typeof item === 'object' && item instanceof Node)
+
+  if (container.childNodes.length == 1 && !shouldBeFragment) {
+    let child = container.firstChild
+    container.removeChild(child)
+    return child
+  } else {
+    return container
+  }
   return container
 }
 
@@ -70,7 +78,6 @@ function taggedTemplateHandler (doc, strings, ...values) {
     return carry.concat(current, (index + 1 === strings.length) ? [] : values[index])
   }, [])
 
-  // Generate the Node array
   return generateNodes(doc, ...arr)
 }
 
@@ -81,14 +88,7 @@ function domify (strings, ...values) {
     if (this.nodeType == Node.DOCUMENT_NODE) doc = this
     else if (this.ownerDocument) doc = this.ownerDocument
   }
-  let result = taggedTemplateHandler(doc, strings, ...values)
-  if (result.childNodes.length == 1) {
-    let child = result.firstChild
-    result.removeChild(child)
-    return child
-  } else {
-    return result
-  }
+  return taggedTemplateHandler(doc, strings, ...values)
 }
 
 })()
